@@ -1,1 +1,1 @@
-# Class-incremental Learning with Rectified Feature Graph Preservation
+# Class-incremental Learning with Rectified Feature-Graph Preservation
