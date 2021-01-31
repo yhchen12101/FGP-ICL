@@ -4,6 +4,7 @@ A pytorch implementation of [Class-incremental Learning with Rectified Feature-G
 
 Cheng-Hsun Lei*, Yi-Hsin Chen*, Wen-Hsiao Peng, Wei-Chen Chiu (contributed equally)
 
+![image](https://github.com/yhchen12101/FGP-ICL/blob/master/images/graph(b).png)
 
 ## Environment
 python 3.7.2
@@ -17,6 +18,9 @@ python Rectified_Feature-Graph_Preservation
 ```
 python Rectified_Feature-Graph_Preservation -initial=10 -memory=1000
 ```
+
+## Result
+![image](https://github.com/yhchen12101/FGP-ICL/blob/master/images/resutls_table.png)
 
 ## Citation
 Please consider to cite this paper in your publications if it helps your research:
