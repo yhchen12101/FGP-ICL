@@ -2,7 +2,7 @@
 
 A pytorch implementation of [Class-incremental Learning with Rectified Feature-Graph Preservation, ACCV 2020](https://arxiv.org/abs/2012.08129).
 
-Cheng-Hsun Lei*, Yi-Hsin Chen*, Wen-Hsiao Peng, Wei-Chen Chiu (contributed equally)
+Cheng-Hsun Lei*, Yi-Hsin Chen*, Wen-Hsiao Peng, Wei-Chen Chiu (*contributed equally)
 
 ![image](https://github.com/yhchen12101/FGP-ICL/blob/master/images/graph(b).png)
 
