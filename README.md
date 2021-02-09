@@ -12,11 +12,11 @@ python 3.7.2
 ## Example Scripts
 1. Cifar100 train from scratch with memory 2000
 ```
-python Rectified_Feature-Graph_Preservation 
+python FGP-ICL-master
 ```
 2. Cifar100 train from 50 with memory 1000
 ```
-python Rectified_Feature-Graph_Preservation -initial=10 -memory=1000
+python FGP-ICL-master -initial=50 -memory=1000
 ```
 
 ## Result
