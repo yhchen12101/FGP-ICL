@@ -33,7 +33,7 @@ class FGP(IncrementalLearner):
         self._old_model = None
         self._means = None
         self._herding_matrix = []
-        
+        self._exemplar_mean_withoutNorm = None
         
     def eval(self):
         self._network.eval()
@@ -212,8 +212,12 @@ class FGP(IncrementalLearner):
         print("Building & updating memory.")
 
         self._data_memory, self._targets_memory = [], []
+        self._class_weight = np.zeros((100, self._network.features_dim))
+        self._exemplar_mean_withoutNorm = np.zeros((100, self._network.features_dim))
         self._exemplar_mean_withNorm = np.zeros((100, self._network.features_dim))
-
+        self._data_mean_withoutNorm = np.zeros((100, self._network.features_dim))
+        
+        
         for class_idx in range(self._n_classes):
             inputs, loader = inc_dataset.get_custom_loader(class_idx, mode="test")
             features, targets = extract_features(
@@ -233,14 +237,15 @@ class FGP(IncrementalLearner):
             )
             self._data_memory.append(inputs[np.where(alph == 1)[0]])
             self._targets_memory.append(targets[np.where(alph == 1)[0]])
-
-            self._exemplar_mean_withNorm[class_idx, :] = mean_withoutNorm
+            
+            self._exemplar_mean_withNorm[class_idx, :] = examplar_mean
+            self._exemplar_mean_withoutNorm[class_idx, :] = mean_withoutNorm
+            
+            self._exemplar_mean_withNorm[class_idx, :] /= np.linalg.norm(self._exemplar_mean_withNorm[class_idx, :])
+            self._exemplar_mean_withoutNorm[class_idx, :] /= np.linalg.norm(self._exemplar_mean_withoutNorm[class_idx, :])
 
         self._data_memory = np.concatenate(self._data_memory)
         self._targets_memory = np.concatenate(self._targets_memory)
-
-    def get_memory(self):
-        return self._data_memory, self._targets_memory
 
 
 def extract_features(model, loader):
@@ -310,7 +315,7 @@ def compute_nearest_accuracy(model, loader, class_means, class_size, task_size):
     targets[range(len(targets_)), targets_.astype('int32')] = 1.
     features = (features.T / (np.linalg.norm(features.T, axis=0) + EPSILON)).T
 
-    # Compute score for iCaRL
+    # Compute score 
     sqd = cdist(class_means[:int(class_size)*task_size,:], features, 'sqeuclidean')
     score = (-sqd).T
     pred_top5=pred_topk(score, targets_)
