@@ -16,7 +16,7 @@ def train(args):
     order_list = copy.deepcopy(args["order"])
     for seed in seed_list:
         for order in order_list:
-            args["name"] = "./Rectified_Feature-Graph_Preservation/results/" + str(args["dataset"]) + "_learnfrom" + str(args["initial"]) + "_m" + str(args["memory_size"])
+            args["name"] = "./FGP-ICL/results/" + str(args["dataset"]) + "_learnfrom" + str(args["initial"]) + "_m" + str(args["memory_size"])
             with open(args["name"] + '_classifier.txt', "a") as annotation:
                 annotation.write("###########This is order"+str(order)+"####################\n")
             with open(args["name"] + '_nearest.txt', "a") as annotation:
